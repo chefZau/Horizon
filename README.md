@@ -28,21 +28,21 @@ I’m a photography hobbyist, and the most magical light is the hour before/afte
     </td>
     <td align="center">
       <img src="docs/screenshots/phase-sunset.png" width="200" alt="Sunset phase" /><br/>
-      <sub>Sunset — Rapidly changing warm tones</sub>
+      <sub>Sunset — Deep orange/amber</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
       <img src="docs/screenshots/phase-blue-start.png" width="200" alt="Blue hour start" /><br/>
-      <sub>Blue Hour Start — Cool tones with residual warmth</sub>
+      <sub>Blue Hour Start — Warm red → deep brown band</sub>
     </td>
     <td align="center">
       <img src="docs/screenshots/phase-blue.png" width="200" alt="Blue hour remaining" /><br/>
-      <sub>Blue Hour — Deep blue, low light</sub>
+      <sub>Blue Hour — Pink-to-purple sky, deep purple ground</sub>
     </td>
     <td align="center">
       <img src="docs/screenshots/phase-night.png" width="200" alt="Night phase" /><br/>
-      <sub>Night — Very low light</sub>
+      <sub>Night — Dark navy with subtle blue glow</sub>
     </td>
   </tr>
 </table>
