@@ -14,6 +14,7 @@ I’m a photography hobbyist, and the most magical light is the hour before/afte
 - **Countdown to next boundary** (e.g. “49m 30s”)
 - **Sunrise / Sunset time** (HH:mm)
 - A phase-themed gradient background + horizon band/highlight
+- Phase gallery (see screenshots below)
 
 ## Project status
 
@@ -98,6 +99,15 @@ Timezone uses `Calendar.current.timeZone`.
 ## Notes
 
 Widgets have limited execution time. Timeline entries are generated only at meaningful astronomical boundaries to preserve system performance.
+
+## Screenshots (phases)
+
+- Sunrise: `docs/screenshots/phase-sunrise.png`
+- Golden Hour: `docs/screenshots/phase-golden.png`
+- Sunset: `docs/screenshots/phase-sunset.png`
+- Blue Hour Start: `docs/screenshots/phase-blue-start.png`
+- Blue Hour: `docs/screenshots/phase-blue.png`
+- Night: `docs/screenshots/phase-night.png`
 
 ## License
 
