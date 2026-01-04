@@ -6,14 +6,65 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3D41B3F72F0A0266001784F4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D41B3F62F0A0266001784F4 /* WidgetKit.framework */; };
+		3D41B3F92F0A0266001784F4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D41B3F82F0A0266001784F4 /* SwiftUI.framework */; };
+		3D41B40A2F0A0268001784F4 /* HorizonWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3D41B3F42F0A0266001784F4 /* HorizonWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3D41B4082F0A0268001784F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D41B3DA2F09FFFC001784F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D41B3F32F0A0266001784F4;
+			remoteInfo = HorizonWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3D41B40F2F0A0268001784F4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3D41B40A2F0A0268001784F4 /* HorizonWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3D41B3E22F09FFFD001784F4 /* Horizon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Horizon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D41B3F42F0A0266001784F4 /* HorizonWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HorizonWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D41B3F62F0A0266001784F4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3D41B3F82F0A0266001784F4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3D41B40B2F0A0268001784F4 /* Exceptions for "HorizonWidget" folder in "HorizonWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3D41B3F32F0A0266001784F4 /* HorizonWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3D41B3E42F09FFFD001784F4 /* Horizon */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Horizon;
+			sourceTree = "<group>";
+		};
+		3D41B3FA2F0A0266001784F4 /* HorizonWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3D41B40B2F0A0268001784F4 /* Exceptions for "HorizonWidget" folder in "HorizonWidgetExtension" target */,
+			);
+			path = HorizonWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,6 +77,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D41B3F12F0A0266001784F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D41B3F92F0A0266001784F4 /* SwiftUI.framework in Frameworks */,
+				3D41B3F72F0A0266001784F4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				3D41B3E42F09FFFD001784F4 /* Horizon */,
+				3D41B3FA2F0A0266001784F4 /* HorizonWidget */,
+				3D41B3F52F0A0266001784F4 /* Frameworks */,
 				3D41B3E32F09FFFD001784F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +103,18 @@
 			isa = PBXGroup;
 			children = (
 				3D41B3E22F09FFFD001784F4 /* Horizon.app */,
+				3D41B3F42F0A0266001784F4 /* HorizonWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3D41B3F52F0A0266001784F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D41B3F62F0A0266001784F4 /* WidgetKit.framework */,
+				3D41B3F82F0A0266001784F4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,10 +127,12 @@
 				3D41B3DE2F09FFFD001784F4 /* Sources */,
 				3D41B3DF2F09FFFD001784F4 /* Frameworks */,
 				3D41B3E02F09FFFD001784F4 /* Resources */,
+				3D41B40F2F0A0268001784F4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3D41B4092F0A0268001784F4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3D41B3E42F09FFFD001784F4 /* Horizon */,
@@ -69,6 +143,28 @@
 			productName = Horizon;
 			productReference = 3D41B3E22F09FFFD001784F4 /* Horizon.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3D41B3F32F0A0266001784F4 /* HorizonWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D41B40C2F0A0268001784F4 /* Build configuration list for PBXNativeTarget "HorizonWidgetExtension" */;
+			buildPhases = (
+				3D41B3F02F0A0266001784F4 /* Sources */,
+				3D41B3F12F0A0266001784F4 /* Frameworks */,
+				3D41B3F22F0A0266001784F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				3D41B3FA2F0A0266001784F4 /* HorizonWidget */,
+			);
+			name = HorizonWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = HorizonWidgetExtension;
+			productReference = 3D41B3F42F0A0266001784F4 /* HorizonWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +177,9 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					3D41B3E12F09FFFD001784F4 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					3D41B3F32F0A0266001784F4 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -100,12 +199,20 @@
 			projectRoot = "";
 			targets = (
 				3D41B3E12F09FFFD001784F4 /* Horizon */,
+				3D41B3F32F0A0266001784F4 /* HorizonWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3D41B3E02F09FFFD001784F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D41B3F22F0A0266001784F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +229,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D41B3F02F0A0266001784F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3D41B4092F0A0268001784F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D41B3F32F0A0266001784F4 /* HorizonWidgetExtension */;
+			targetProxy = 3D41B4082F0A0268001784F4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3D41B3EB2F09FFFF001784F4 /* Debug */ = {
@@ -306,6 +428,64 @@
 			};
 			name = Release;
 		};
+		3D41B40D2F0A0268001784F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HorizonWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HorizonWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.luca.Horizon.HorizonWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3D41B40E2F0A0268001784F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HorizonWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HorizonWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.luca.Horizon.HorizonWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -323,6 +503,15 @@
 			buildConfigurations = (
 				3D41B3EE2F09FFFF001784F4 /* Debug */,
 				3D41B3EF2F09FFFF001784F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D41B40C2F0A0268001784F4 /* Build configuration list for PBXNativeTarget "HorizonWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D41B40D2F0A0268001784F4 /* Debug */,
+				3D41B40E2F0A0268001784F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

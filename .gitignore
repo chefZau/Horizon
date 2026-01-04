@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Xcode derived data and build outputs
+DerivedData/
+build/
+.build/
+*.moved-aside
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# SwiftPM
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Playgrounds / temp
+timeline.xctimeline
+*.playground/
+*.playgroundbook/
+*.idea/
+*.swp
+*~.nib
