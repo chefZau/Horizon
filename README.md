@@ -16,16 +16,39 @@ I’m a photography hobbyist, and the most magical light is the hour before/afte
 - A phase-themed gradient background + horizon band/highlight
 - Phase gallery (see screenshots below)
 
-## Screenshots
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/phase-sunrise.png" width="200" alt="Sunrise phase" /><br/>
+      <sub>Sunrise — Neutral to harsh daylight</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/phase-golden.png" width="200" alt="Golden hour" /><br/>
+      <sub>Golden Hour — Warm, directional light</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/phase-sunset.png" width="200" alt="Sunset phase" /><br/>
+      <sub>Sunset — Rapidly changing warm tones</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/phase-blue-start.png" width="200" alt="Blue hour start" /><br/>
+      <sub>Blue Hour Start — Cool tones with residual warmth</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/phase-blue.png" width="200" alt="Blue hour remaining" /><br/>
+      <sub>Blue Hour — Deep blue, low light</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/phase-night.png" width="200" alt="Night phase" /><br/>
+      <sub>Night — Very low light</sub>
+    </td>
+  </tr>
+</table>
 
-<p align="left">
-  <img src="docs/screenshots/phase-sunrise.png" width="260" />
-  <img src="docs/screenshots/phase-golden.png" width="260" />
-  <img src="docs/screenshots/phase-sunset.png" width="260" />
-  <img src="docs/screenshots/phase-blue-start.png" width="260" />
-  <img src="docs/screenshots/phase-blue.png" width="260" />
-  <img src="docs/screenshots/phase-night.png" width="260" />
-</p>
+> The current implementation splits **Blue hour** into *start* and *remaining* to better match real photography decision points.
+
 
 ## Project status
 
