@@ -18,34 +18,34 @@ enum SunPhase: CaseIterable {
     var title: String {
         switch self {
         case .preDawn:
-            return "日出"
+            return "Sunrise"
         case .daytime:
-            return "黄金开始"
+            return "Golden Hour"
         case .sunset:
-            return "日落"
+            return "Sunset"
         case .blueHourStart:
-            return "蓝调开始"
+            return "Blue Hour Start"
         case .blueHourRemaining:
-            return "蓝调剩余"
+            return "Blue Hour"
         case .night:
-            return "日出"
+            return "Sunrise"
         }
     }
 
     var countdownText: String {
         switch self {
         case .preDawn:
-            return "7小时34分钟"
+            return "7h 34m"
         case .daytime:
-            return "49分钟30秒"
+            return "49m 30s"
         case .sunset:
-            return "29分钟38秒"
+            return "29m 38s"
         case .blueHourStart:
-            return "5分钟8秒"
+            return "5m 8s"
         case .blueHourRemaining:
-            return "2分钟4秒"
+            return "2m 4s"
         case .night:
-            return "12小时32分钟"
+            return "12h 32m"
         }
     }
 }

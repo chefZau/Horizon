@@ -19,7 +19,7 @@ struct Provider: AppIntentTimelineProvider {
     }
 
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), model: .init(phase: .daytime, sunrise: "06:05", sunset: "18:13", countdownText: "49分钟30秒"))
+        SimpleEntry(date: Date(), model: .init(phase: .daytime, sunrise: "06:05", sunset: "18:13", countdownText: "49m 30s"))
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
@@ -92,18 +92,18 @@ struct Provider: AppIntentTimelineProvider {
 
     private func countdownText(from start: Date, to end: Date) -> String {
         let interval = Int(end.timeIntervalSince(start).rounded())
-        if interval <= 0 { return "0秒" }
+        if interval <= 0 { return "0s" }
 
         let hours = interval / 3600
         let minutes = (interval % 3600) / 60
         let seconds = interval % 60
 
         if hours > 0 {
-            return "\(hours)小时\(minutes)分钟"
+            return "\(hours)h \(minutes)m"
         } else if minutes > 0 {
-            return "\(minutes)分钟\(seconds)秒"
+            return "\(minutes)m \(seconds)s"
         } else {
-            return "\(seconds)秒"
+            return "\(seconds)s"
         }
     }
 }

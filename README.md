@@ -10,8 +10,8 @@ I’m a photography hobbyist, and the most magical light is the hour before/afte
 
 ## What it shows
 
-- **Phase label** (e.g. Pre-dawn / Daytime / Sunset / Blue hour…)
-- **Countdown to next boundary** (e.g. “49分钟30秒”)
+- **Phase label** (e.g. Sunrise / Golden Hour / Sunset / Blue Hour…)
+- **Countdown to next boundary** (e.g. “49m 30s”)
 - **Sunrise / Sunset time** (HH:mm)
 - A phase-themed gradient background + horizon band/highlight
 
