@@ -16,6 +16,17 @@ I’m a photography hobbyist, and the most magical light is the hour before/afte
 - A phase-themed gradient background + horizon band/highlight
 - Phase gallery (see screenshots below)
 
+## Screenshots
+
+<p align="left">
+  <img src="docs/screenshots/phase-sunrise.png" width="260" />
+  <img src="docs/screenshots/phase-golden.png" width="260" />
+  <img src="docs/screenshots/phase-sunset.png" width="260" />
+  <img src="docs/screenshots/phase-blue-start.png" width="260" />
+  <img src="docs/screenshots/phase-blue.png" width="260" />
+  <img src="docs/screenshots/phase-night.png" width="260" />
+</p>
+
 ## Project status
 
 ✅ UI prototype completed  
@@ -99,15 +110,6 @@ Timezone uses `Calendar.current.timeZone`.
 ## Notes
 
 Widgets have limited execution time. Timeline entries are generated only at meaningful astronomical boundaries to preserve system performance.
-
-## Screenshots (phases)
-
-- Sunrise: `docs/screenshots/phase-sunrise.png`
-- Golden Hour: `docs/screenshots/phase-golden.png`
-- Sunset: `docs/screenshots/phase-sunset.png`
-- Blue Hour Start: `docs/screenshots/phase-blue-start.png`
-- Blue Hour: `docs/screenshots/phase-blue.png`
-- Night: `docs/screenshots/phase-night.png`
 
 ## License
 
