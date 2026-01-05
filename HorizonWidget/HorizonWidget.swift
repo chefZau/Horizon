@@ -9,14 +9,10 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: AppIntentTimelineProvider {
-    private let latitude: Double = 43.6532
-    private let longitude: Double = -79.3832
-    private let timeZone: TimeZone = Calendar.current.timeZone
-    var calendar: Calendar {
-        var cal = Calendar.current
-        cal.timeZone = timeZone
-        return cal
-    }
+    private let fallbackLatitude: Double = 43.6532
+    private let fallbackLongitude: Double = -79.3832
+    private let maxCoordinateAge: TimeInterval = 12 * 3600
+    private let fallbackTimeZone: TimeZone = TimeZone(identifier: "America/Toronto") ?? Calendar.current.timeZone
 
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), model: .init(phase: .daytime, sunrise: "06:05", sunset: "18:13", countdownText: "49m 30s"))
@@ -24,17 +20,23 @@ struct Provider: AppIntentTimelineProvider {
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         let now = Date()
-        let timesToday = SunAstronomy.calculateSunTimes(for: now, latitude: latitude, longitude: longitude, timeZone: timeZone, calendar: calendar)
-        let timesTomorrow = SunAstronomy.calculateSunTimes(for: calendar.date(byAdding: .day, value: 1, to: now) ?? now, latitude: latitude, longitude: longitude, timeZone: timeZone, calendar: calendar)
-        return makeEntry(for: now, timesToday: timesToday, timesTomorrow: timesTomorrow)
+        let coordinates = loadCoordinates()
+        var cal = Calendar.current
+        cal.timeZone = coordinates.tz
+        let timesToday = SunAstronomy.calculateSunTimes(for: now, latitude: coordinates.lat, longitude: coordinates.lon, timeZone: coordinates.tz, calendar: cal)
+        let timesTomorrow = SunAstronomy.calculateSunTimes(for: cal.date(byAdding: .day, value: 1, to: now) ?? now, latitude: coordinates.lat, longitude: coordinates.lon, timeZone: coordinates.tz, calendar: cal)
+        return makeEntry(for: now, timesToday: timesToday, timesTomorrow: timesTomorrow, calendar: cal, timeZone: coordinates.tz)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
 
         let currentDate = Date()
-        let timesToday = SunAstronomy.calculateSunTimes(for: currentDate, latitude: latitude, longitude: longitude, timeZone: timeZone, calendar: calendar)
-        let timesTomorrow = SunAstronomy.calculateSunTimes(for: calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate, latitude: latitude, longitude: longitude, timeZone: timeZone, calendar: calendar)
+        let coordinates = loadCoordinates()
+        var cal = Calendar.current
+        cal.timeZone = coordinates.tz
+        let timesToday = SunAstronomy.calculateSunTimes(for: currentDate, latitude: coordinates.lat, longitude: coordinates.lon, timeZone: coordinates.tz, calendar: cal)
+        let timesTomorrow = SunAstronomy.calculateSunTimes(for: cal.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate, latitude: coordinates.lat, longitude: coordinates.lon, timeZone: coordinates.tz, calendar: cal)
 
         let boundaries = phaseBoundaries(timesToday: timesToday, timesTomorrow: timesTomorrow)
 
@@ -42,7 +44,7 @@ struct Provider: AppIntentTimelineProvider {
         entryDates.append(contentsOf: boundaries.filter { $0 > currentDate })
 
         for date in entryDates {
-            let entry = makeEntry(for: date, timesToday: timesToday, timesTomorrow: timesTomorrow, nextBoundaries: boundaries)
+            let entry = makeEntry(for: date, timesToday: timesToday, timesTomorrow: timesTomorrow, nextBoundaries: boundaries, calendar: cal, timeZone: coordinates.tz)
             entries.append(entry)
         }
 
@@ -51,14 +53,17 @@ struct Provider: AppIntentTimelineProvider {
 
     // MARK: - Helpers
 
-    func makeEntry(for date: Date, timesToday: SunTimes, timesTomorrow: SunTimes, nextBoundaries: [Date]? = nil) -> SimpleEntry {
-        let formatter = timeFormatter()
+    func makeEntry(for date: Date, timesToday: SunTimes, timesTomorrow: SunTimes, nextBoundaries: [Date]? = nil, calendar: Calendar? = nil, timeZone: TimeZone? = nil) -> SimpleEntry {
+        let tz = timeZone ?? fallbackTimeZone
+        var cal = calendar ?? Calendar.current
+        cal.timeZone = tz
+        let formatter = timeFormatter(timeZone: tz)
         let sunriseText = formatter.string(from: timesToday.sunrise ?? date)
         let sunsetText = formatter.string(from: timesToday.sunset ?? date)
 
         let phase = SunAstronomy.resolvePhase(now: date, times: timesToday, nextDayTimes: timesTomorrow)
         let boundaries = nextBoundaries ?? phaseBoundaries(timesToday: timesToday, timesTomorrow: timesTomorrow)
-        let nextBoundary = boundaries.first(where: { $0 > date }) ?? calendar.date(byAdding: .hour, value: 6, to: date)!
+        let nextBoundary = boundaries.first(where: { $0 > date }) ?? cal.date(byAdding: .hour, value: 6, to: date)!
         let countdown = countdownText(from: date, to: nextBoundary)
 
         let model = SunWidgetModel(phase: phase, sunrise: sunriseText, sunset: sunsetText, countdownText: countdown)
@@ -83,7 +88,7 @@ struct Provider: AppIntentTimelineProvider {
         return points.sorted()
     }
 
-    private func timeFormatter() -> DateFormatter {
+    private func timeFormatter(timeZone: TimeZone) -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         formatter.timeZone = timeZone
@@ -105,6 +110,33 @@ struct Provider: AppIntentTimelineProvider {
         } else {
             return "\(seconds)s"
         }
+    }
+
+    private func loadCoordinates() -> (lat: Double, lon: Double, tz: TimeZone, ts: Double) {
+        guard let defaults = UserDefaults(suiteName: AppGroup.id) else {
+            print("[HorizonWidgetRead] fallback: app group unavailable, using lat=\(fallbackLatitude) lon=\(fallbackLongitude)")
+            return (fallbackLatitude, fallbackLongitude, fallbackTimeZone, 0)
+        }
+
+        let timestamp = defaults.double(forKey: "timestamp")
+        let age = Date().timeIntervalSince1970 - timestamp
+        guard let lat = defaults.object(forKey: "latitude") as? Double,
+              let lon = defaults.object(forKey: "longitude") as? Double,
+              timestamp > 0 else {
+            print("[HorizonWidgetRead] fallback: missing stored location, using lat=\(fallbackLatitude) lon=\(fallbackLongitude)")
+            return (fallbackLatitude, fallbackLongitude, fallbackTimeZone, 0)
+        }
+
+        let tzId = defaults.string(forKey: "timeZoneId")
+        let tz = TimeZone(identifier: tzId ?? "") ?? fallbackTimeZone
+
+        if age > maxCoordinateAge {
+            print("[HorizonWidgetRead] fallback: stored location stale age=\(age)s ts=\(timestamp), using lat=\(fallbackLatitude) lon=\(fallbackLongitude) tz=\(tz.identifier)")
+            return (fallbackLatitude, fallbackLongitude, fallbackTimeZone, timestamp)
+        }
+
+        print("[HorizonWidgetRead] using stored coords lat=\(lat) lon=\(lon) ts=\(timestamp) age=\(age)s tzId=\(tz.identifier)")
+        return (lat, lon, tz, timestamp)
     }
 }
 

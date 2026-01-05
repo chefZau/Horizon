@@ -79,6 +79,7 @@ Key files:
 - `SunTheme.swift` / `SunPhase.swift`  
   Phase definitions and per-phase visual themes (gradients/colors). 
 
+
 ## Phase logic (current)
 
 The widget timeline is driven by real astronomical times and switches phases at these boundaries:
@@ -91,6 +92,31 @@ The widget timeline is driven by real astronomical times and switches phases at 
 - Next day **sunrise**
 
 The countdown always points to the *next upcoming boundary*.
+
+Phase resolution (pseudo-code)
+```swift
+if now < sunrise            -> preDawn
+else if now < goldenStart   -> daytime
+else if now < sunset        -> sunset
+else if now in blueStart...blueEnd:
+    if now < midpoint(blueStart, blueEnd) -> blueHourStart
+    else                                   -> blueHourRemaining
+else                        -> night
+```
+
+Notes:
+- A newly generated timeline uses “today” + “next day sunrise.” After midnight, phase remains `night` until the next timeline is generated and `now < sunrise` holds (then `preDawn` shows). 
+
+### Phase interpretation
+
+Phases are **time ranges**, not single instants.
+
+- `sunrise` represents the low-sun transition period after the official sunrise time.
+- `daytime` begins only after this transition stabilizes.
+- `goldenHourStart` is tied to **sunset**, not morning.
+- Phase changes always occur at real astronomical boundaries.
+
+This model favors **visual continuity** over strict clock-based labels, matching how daylight is perceived in practice.
 
 ## Getting started
 
@@ -105,14 +131,10 @@ The project includes `#Preview(as: .systemMedium)` samples covering all phases v
 
 ## Configuration
 
-Location is currently hard-coded in `Provider`:
-
-```swift
-private let latitude: Double = 43.6532
-private let longitude: Double = -79.3832
-```
-
-Timezone uses `Calendar.current.timeZone`.
+Widget timezone usage:
+- Main app stores `latitude`, `longitude`, `timestamp`, and `timeZoneId` in the App Group (`group.com.lucazhou.horizon`).
+- Widget reads those values; if missing/stale, it falls back to Toronto coords/timezone.
+- Astronomy calculations and time formatting both use the stored `timeZoneId` when available.
 
 ## Design goals
 

@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct HorizonApp: App {
+    @StateObject private var locationManager = LocationManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    locationManager.start()
+                }
         }
     }
 }
