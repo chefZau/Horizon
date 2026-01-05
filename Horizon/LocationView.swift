@@ -6,19 +6,16 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 struct LocationView: View {
     @State private var city: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text(city ?? "Current location")
-                    .font(.headline)
-            }
+            Text(city ?? "Current location")
+                .font(.headline)
 
-            Text("Location is read from the main app (App Group) and shared with the widget.")
+            Text("Uses your current device location automatically and shares it with the widget (read-only).")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

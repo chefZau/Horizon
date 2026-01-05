@@ -1,3 +1,4 @@
+#if DEBUG
 //
 //  DebugLocationView.swift
 //  Horizon
@@ -95,3 +96,4 @@ struct DebugLocationView: View {
         return .current
     }
 }
+#endif
