@@ -61,23 +61,26 @@ I’m a photography hobbyist, and the most magical light is the hour before/afte
 
 Key files:
 
+- `Shared/SunDataService.swift`  
+  Shared astronomy + phase resolution + formatting used by both app and widget.
+
 - `HorizonWidget.swift`  
-  Widget configuration, timeline provider, entries, and previews.
+  Widget configuration, timeline provider, entries, previews (systemMedium).
 
 - `HorizonArcShape.swift` / `HorizonFillShape.swift`  
-  Horizon geometry for the arc highlight and filled ground band.
+  Horizon geometry for the highlight arc and filled ground band.
 
-- `SunAstronomy.swift`  
-  Solar time calculations (sunrise/sunset + photography-related times) and phase resolution.
+- `SunWidgetModel.swift` & `SunWidgetView.swift`  
+  View model and SwiftUI layout (full-bleed gradient, horizon band, typography).
 
-- `SunWidgetModel.swift`  
-  View model containing phase, sunrise/sunset strings, and countdown text.
+- `SunTheme.swift`  
+  Per-phase visual themes (gradients/colors).
 
-- `SunWidgetView.swift`  
-  SwiftUI layout and drawing (gradient background, horizon arc, typography).
+- `TodayView.swift` / `LocationView.swift` / `AboutView.swift`  
+  Main app surfaces for today’s phase/times, location info, and about copy.
 
-- `SunTheme.swift` / `SunPhase.swift`  
-  Phase definitions and per-phase visual themes (gradients/colors). 
+- `AppGroupStore.swift` / `LocationManager.swift`  
+  App Group data access and location write-back (lat/lon/timestamp/timeZoneId/city) with widget reload.
 
 
 ## Phase logic (current)
@@ -131,10 +134,10 @@ The project includes `#Preview(as: .systemMedium)` samples covering all phases v
 
 ## Configuration
 
-Widget timezone usage:
-- Main app stores `latitude`, `longitude`, `timestamp`, and `timeZoneId` in the App Group (`group.com.lucazhou.horizon`).
-- Widget reads those values; if missing/stale, it falls back to Toronto coords/timezone.
-- Astronomy calculations and time formatting both use the stored `timeZoneId` when available.
+Data flow (app ↔︎ widget):
+- Main app gets device location, reverse-geocodes a `timeZoneId`, and writes `latitude`, `longitude`, `timestamp`, `timeZoneId` (and city) to the App Group `group.com.lucazhou.horizon`, then reloads widget timelines.
+- Widget reads the same App Group values; if missing or older than 12h, it falls back to Toronto coords/timezone.
+- Both app and widget call the same `SunDataService.computeSunState(...)`, using the stored timezone for **both** astronomy math and `DateFormatter` output, keeping times/phase in sync.
 
 ## Design goals
 
