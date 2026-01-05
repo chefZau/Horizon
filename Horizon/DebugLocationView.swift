@@ -16,13 +16,6 @@ struct DebugLocationView: View {
     @State private var timeZoneId: String?
     @State private var message: String?
 
-    private let formatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateStyle = .short
-        f.timeStyle = .medium
-        return f
-    }()
-
     private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -88,6 +81,17 @@ struct DebugLocationView: View {
 
     private func formatted(dateFrom timestamp: Double?) -> String {
         guard let ts = timestamp, ts > 0 else { return "nil" }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .medium
+        formatter.timeZone = resolvedTimeZone()
         return formatter.string(from: Date(timeIntervalSince1970: ts))
+    }
+
+    private func resolvedTimeZone() -> TimeZone {
+        if let tzId = timeZoneId, let tz = TimeZone(identifier: tzId) {
+            return tz
+        }
+        return .current
     }
 }

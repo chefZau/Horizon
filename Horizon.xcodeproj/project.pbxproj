@@ -67,6 +67,11 @@
 			path = HorizonWidget;
 			sourceTree = "<group>";
 		};
+		3D41B4AA2F0BFFFF001784F4 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +99,7 @@
 			children = (
 				3D41B3E42F09FFFD001784F4 /* Horizon */,
 				3D41B3FA2F0A0266001784F4 /* HorizonWidget */,
+				3D41B4AA2F0BFFFF001784F4 /* Shared */,
 				3D41B3F52F0A0266001784F4 /* Frameworks */,
 				3D41B3E32F09FFFD001784F4 /* Products */,
 			);
@@ -136,6 +142,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3D41B3E42F09FFFD001784F4 /* Horizon */,
+				3D41B4AA2F0BFFFF001784F4 /* Shared */,
 			);
 			name = Horizon;
 			packageProductDependencies = (
@@ -158,6 +165,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3D41B3FA2F0A0266001784F4 /* HorizonWidget */,
+				3D41B4AA2F0BFFFF001784F4 /* Shared */,
 			);
 			name = HorizonWidgetExtension;
 			packageProductDependencies = (

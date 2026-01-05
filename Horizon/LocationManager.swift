@@ -25,7 +25,7 @@ final class LocationManager: NSObject, ObservableObject {
         manager.startUpdatingLocation()
     }
 
-    private func persistLocation(_ coordinate: CLLocationCoordinate2D, tzId: String?, timestamp: TimeInterval) {
+    private func persistLocation(_ coordinate: CLLocationCoordinate2D, tzId: String?, city: String?, timestamp: TimeInterval) {
         guard let defaults = UserDefaults(suiteName: AppGroup.id) else { return }
         defaults.set(coordinate.latitude, forKey: "latitude")
         defaults.set(coordinate.longitude, forKey: "longitude")
@@ -35,13 +35,18 @@ final class LocationManager: NSObject, ObservableObject {
         } else {
             defaults.removeObject(forKey: "timeZoneId")
         }
+        if let city {
+            defaults.set(city, forKey: "cityName")
+        }
+        defaults.set(true, forKey: "isAutomaticLocation")
         defaults.synchronize()
 
         let lat = defaults.double(forKey: "latitude")
         let lon = defaults.double(forKey: "longitude")
         let savedTs = defaults.double(forKey: "timestamp")
         let savedTz = defaults.string(forKey: "timeZoneId") ?? "nil"
-        print("[HorizonAppGroupWrite] stored lat=\(lat) lon=\(lon) ts=\(savedTs) tzId=\(savedTz)")
+        let savedCity = defaults.string(forKey: "cityName") ?? "nil"
+        print("[HorizonAppGroupWrite] stored lat=\(lat) lon=\(lon) ts=\(savedTs) tzId=\(savedTz) city=\(savedCity)")
         WidgetCenter.shared.reloadAllTimelines()
     }
 }
@@ -66,12 +71,16 @@ extension LocationManager: CLLocationManagerDelegate {
             geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, error in
                 if let error {
                     print("[HorizonAppGroupWrite] reverse geocode failed: \(error.localizedDescription)")
-                    self.persistLocation(coord, tzId: nil, timestamp: ts)
+                    self.persistLocation(coord, tzId: nil, city: nil, timestamp: ts)
                     return
                 }
-                let tzId = placemarks?.first?.timeZone?.identifier
-                print("[HorizonAppGroupWrite] reverse geocode tzId=\(tzId ?? "nil")")
-                self.persistLocation(coord, tzId: tzId, timestamp: ts)
+                let placemark = placemarks?.first
+                let tzId = placemark?.timeZone?.identifier
+                let city = [placemark?.locality, placemark?.administrativeArea, placemark?.country]
+                    .compactMap { $0 }
+                    .joined(separator: ", ")
+                print("[HorizonAppGroupWrite] reverse geocode tzId=\(tzId ?? "nil") city=\(city ?? "nil")")
+                self.persistLocation(coord, tzId: tzId, city: city, timestamp: ts)
             }
         }
     }

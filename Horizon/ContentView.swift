@@ -9,19 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-            }
-            .padding()
-
+        NavigationView {
+            List {
+                Section(header: Text("Today")) {
+                    TodayView()
+                }
+                Section(header: Text("Location")) {
+                    LocationView()
+                }
+                Section(header: Text("About")) {
+                    AboutView()
+                }
 #if DEBUG
-            DebugLocationView()
-                .padding()
+                Section(header: Text("Debug")) {
+                    DebugLocationView()
+                }
 #endif
+            }
+            .navigationTitle("Horizon")
         }
     }
 }
