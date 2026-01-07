@@ -14,6 +14,9 @@ struct ContentView: View {
                 Section(header: Text("Today")) {
                     TodayView()
                 }
+                Section(header: Text("App Icon")) {
+                    AppIconView()
+                }
                 Section(header: Text("Location")) {
                     LocationView()
                 }
